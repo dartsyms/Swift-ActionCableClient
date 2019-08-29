@@ -24,7 +24,6 @@ import Foundation
 import Accelerate
 
 internal let ActionCableSerialQueue = DispatchQueue(label: "com.ActionCableClient.SerialQueue", attributes: []);
-internal let ActionCableConcurrentQueue = DispatchQueue(label: "com.ActionCableClient.Conccurent", attributes: DispatchQueue.Attributes.concurrent)
 
 internal enum Command {
     case subscribe
@@ -84,14 +83,14 @@ internal enum MessageType {
 }
 
 internal struct Message {
-    var channelName : String?
+    var channelIdentifier : String?
     var actionName : String?
     var messageType : MessageType
     var data : Any?
     var error: Swift.Error?
   
     static func simple(_ channel: Channel, messageType: MessageType) -> Message {
-        return Message(channelName: channel.name,
+        return Message(channelIdentifier: channel.identifier,
                         actionName: nil,
                        messageType: messageType,
                               data: nil,
